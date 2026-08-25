@@ -1,0 +1,9 @@
+<svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Temporary lightweight placeholder. Replace this file with your approved Kodava symbol SVG. -->
+  <circle cx="80" cy="80" r="68" stroke="#681F29" stroke-width="3"/>
+  <circle cx="80" cy="80" r="58" stroke="#AA8150" stroke-width="1.5"/>
+  <path d="M47 107L105 49" stroke="#681F29" stroke-width="7" stroke-linecap="round"/>
+  <path d="M53 45L110 111" stroke="#263D33" stroke-width="7" stroke-linecap="round"/>
+  <path d="M44 112C58 100 67 94 80 90C93 94 102 100 116 112" stroke="#AA8150" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="80" cy="80" r="7" fill="#AA8150"/>
+</svg>

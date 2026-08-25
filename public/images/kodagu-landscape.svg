@@ -1,0 +1,14 @@
+<svg width="1200" height="680" viewBox="0 0 1200 680" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="680" fill="#DCD6C7"/>
+  <circle cx="890" cy="138" r="70" fill="#E9D6AB"/>
+  <path d="M0 420C130 335 212 300 329 344C455 391 510 283 639 307C775 332 822 235 959 265C1064 288 1139 244 1200 205V680H0V420Z" fill="#809184"/>
+  <path d="M0 489C153 405 245 388 366 420C507 458 559 363 685 387C814 411 902 335 1015 360C1086 375 1149 352 1200 318V680H0V489Z" fill="#536B5D"/>
+  <path d="M0 560C167 503 306 485 453 514C590 541 691 477 817 501C940 524 1060 495 1200 443V680H0V560Z" fill="#314A3D"/>
+  <path d="M0 379C174 349 337 363 495 380C667 399 847 339 1200 285" stroke="#F6F0E4" stroke-opacity=".55" stroke-width="22"/>
+  <g fill="#253D31" opacity=".86">
+    <path d="M95 513L128 432L161 513H95Z"/><path d="M140 521L176 418L212 521H140Z"/>
+    <path d="M975 452L1009 356L1043 452H975Z"/><path d="M1020 461L1058 344L1096 461H1020Z"/>
+  </g>
+  <text x="70" y="105" fill="#59685F" font-family="Georgia,serif" font-size="44" letter-spacing="10">KODAGU</text>
+  <text x="72" y="145" fill="#796E62" font-family="Arial,sans-serif" font-size="15" letter-spacing="6">HILLS • MIST • COFFEE</text>
+</svg>

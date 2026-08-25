@@ -1,0 +1,10 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#F8F2E8"/>
+  <rect x="28" y="28" width="1144" height="574" stroke="#AA8150" stroke-width="2"/>
+  <circle cx="600" cy="160" r="66" stroke="#681F29" stroke-width="3"/>
+  <path d="M565 192L631 126" stroke="#681F29" stroke-width="7" stroke-linecap="round"/>
+  <path d="M569 124L634 196" stroke="#263D33" stroke-width="7" stroke-linecap="round"/>
+  <text x="600" y="300" text-anchor="middle" fill="#7D5C34" font-family="Arial,sans-serif" font-size="18" font-weight="700" letter-spacing="8">KODAGU • COORG</text>
+  <text x="600" y="390" text-anchor="middle" fill="#681F29" font-family="Georgia,serif" font-size="72">Wedding Invitation</text>
+  <text x="600" y="455" text-anchor="middle" fill="#665D54" font-family="Georgia,serif" font-size="26" font-style="italic">Two families. One story.</text>
+</svg>

@@ -1,0 +1,47 @@
+# dependencies
+/node_modules
+
+# Next.js
+/.next
+/out
+
+# generated
+/src/generated
+
+# testing
+/coverage
+
+# local environment files
+.env
+.env.local
+.env.*
+!.env.example
+
+# logs
+*.log
+npm-debug.log*
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.idea
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Prisma local artifacts
+prisma/*.db
+prisma/*.db-journal
+
+# Test artifacts
+coverage/
+playwright-report/
+test-results/
+blob-report/
+
+# Live business-test console output
+.test-results/
+
+# Database backups are operational artifacts and may contain production data
+/backups/
