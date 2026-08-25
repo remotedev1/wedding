@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
+import { type KeyboardEvent, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { wedding } from "@/data/wedding";
 import { InvitationContent } from "./InvitationContent";
@@ -18,6 +18,7 @@ export function EnvelopeStage({
   onReplay
 }: EnvelopeStageProps) {
   const rootRef = useRef<HTMLDivElement>(null);
+  const animatingRef = useRef(false);
   const [animating, setAnimating] = useState(false);
 
   useLayoutEffect(() => {
@@ -34,9 +35,12 @@ export function EnvelopeStage({
     const hint = root.querySelector(".open-hint");
 
     if (opened) {
+      animatingRef.current = false;
       gsap.set(wrap, { opacity: 0, pointerEvents: "none" });
       return;
     }
+
+    animatingRef.current = false;
 
     gsap.killTweensOf([wrap, scene, body, flap, seal, sealRing, card, hint]);
 
@@ -75,11 +79,11 @@ export function EnvelopeStage({
     });
 
     gsap.set(card, {
-      opacity: 1,
-      yPercent: 24,
-      scale: 0.965,
+      autoAlpha: 0,
+      yPercent: 34,
+      scale: 0.94,
       rotateX: 0,
-      zIndex: 20
+      zIndex: 6
     });
 
     gsap.set(hint, {
@@ -89,14 +93,17 @@ export function EnvelopeStage({
   }, [opened]);
 
   const openEnvelope = () => {
-    if (animating || opened || !rootRef.current) return;
+    if (animatingRef.current || animating || opened || !rootRef.current) return;
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduced) {
+      animatingRef.current = true;
+      setAnimating(true);
       onOpened();
       return;
     }
 
+    animatingRef.current = true;
     setAnimating(true);
 
     const root = rootRef.current;
@@ -112,6 +119,7 @@ export function EnvelopeStage({
     const tl = gsap.timeline({
       defaults: { overwrite: "auto" },
       onComplete: () => {
+        animatingRef.current = false;
         setAnimating(false);
         onOpened();
       }
@@ -159,48 +167,50 @@ export function EnvelopeStage({
         ease: "power2.in"
       })
 
-      // 3. Open the flap while it is still above the card.
+      // 3. Wake the hidden card inside the envelope, then open the flap.
+      .set(card, {
+        autoAlpha: 1,
+        zIndex: 6
+      })
       .to(flap, {
         rotateX: -176,
         duration: 0.72,
         ease: "power3.inOut"
       }, "-=0.02")
 
-      // 4. As soon as it is fully open, move flap behind the card.
+      // 4. Lift the card from behind the envelope face.
       .set(flap, {
         zIndex: 12
       })
+      .to(card, {
+        yPercent: -74,
+        scale: 1.005,
+        duration: 0.74,
+        ease: "power3.out"
+      }, "-=0.06")
       .set(card, {
         zIndex: 70
       })
-
-      // 5. Lift card out while front folds remain beneath it.
       .to(card, {
-        yPercent: 0,
-        scale: 1,
-        duration: 0.26,
-        ease: "power2.out"
-      }, "-=0.02")
-      .to(card, {
-        yPercent: -76,
-        scale: 1.018,
-        duration: 0.72,
-        ease: "power3.out"
+        yPercent: -98,
+        scale: 1.025,
+        duration: 0.36,
+        ease: "back.out(1.25)"
       })
 
-      // 6. Drop the envelope body away.
+      // 5. Drop the envelope body away after the card has popped out.
       .to(body, {
         y: 92,
         opacity: 0,
         duration: 0.5,
         ease: "power2.in"
-      }, "-=0.2")
+      }, "-=0.18")
 
-      // 7. Card exits toward the viewer, then full page takes over.
+      // 6. Card exits toward the viewer, then full page takes over.
       .to(card, {
-        yPercent: -118,
+        yPercent: -122,
         scale: 1.05,
-        opacity: 0,
+        autoAlpha: 0,
         duration: 0.46,
         ease: "power2.inOut"
       }, "-=0.08")
@@ -211,8 +221,24 @@ export function EnvelopeStage({
       }, "-=0.18");
   };
 
+  const handleStageKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+
+    event.preventDefault();
+    openEnvelope();
+  };
+
   return (
-    <div ref={rootRef} className={`envelope-stage ${opened ? "content-open" : ""}`}>
+    <div
+      ref={rootRef}
+      className={`envelope-stage ${opened ? "content-open" : ""}`}
+      onClick={!opened ? openEnvelope : undefined}
+      onKeyDown={!opened ? handleStageKeyDown : undefined}
+      role={!opened ? "button" : undefined}
+      tabIndex={!opened ? 0 : undefined}
+      aria-label={!opened ? "Open wedding invitation" : undefined}
+      aria-disabled={!opened && animating ? true : undefined}
+    >
       {!opened && (
         <>
           <div className="ambient-glow" aria-hidden="true" />
@@ -222,13 +248,7 @@ export function EnvelopeStage({
 
       {!opened && (
         <section className="envelope-wrap" aria-label="Wedding invitation envelope">
-          <button
-            className="envelope-button"
-            type="button"
-            onClick={openEnvelope}
-            disabled={animating}
-            aria-label="Open wedding invitation"
-          >
+          <div className="envelope-button" aria-hidden="true">
             <span className="envelope-scene">
               <span className="invite-card premium-card">
                 <span className="card-inner-border" aria-hidden="true" />
@@ -260,7 +280,7 @@ export function EnvelopeStage({
                 </span>
               </span>
             </span>
-          </button>
+          </div>
 
           <div className="open-hint">
             <strong>Tap to open</strong>

@@ -113,6 +113,20 @@ button {
   padding: 1.5rem;
 }
 
+.envelope-stage:not(.content-open) {
+  cursor: pointer;
+}
+
+.envelope-stage:not(.content-open):focus {
+  outline: none;
+}
+
+.envelope-stage:not(.content-open):focus-visible .envelope-scene {
+  outline: 2px solid var(--gold);
+  outline-offset: 12px;
+  border-radius: 1rem;
+}
+
 .ambient-glow {
   position: absolute;
   width: min(80vw, 42rem);
@@ -1610,7 +1624,7 @@ body {
 .family-grid > div > .family-card, .event-grid > div > .event-card { height: 100%; }
 
 @media (hover: hover) and (pointer: fine) {
-  .envelope-button:hover .envelope-scene { transform: translateY(-3px); }
+  .envelope-stage:not(.content-open):hover .envelope-scene { transform: translateY(-3px); }
   .envelope-scene { transition: transform .32s ease; }
 }
 
@@ -2292,9 +2306,14 @@ body {
   height: 60%;
 }
 
-/* Ensure card does not visually peek beyond the envelope at rest. */
-.envelope-wrap:not(.is-opened) .premium-card {
+/* Keep the invitation fully hidden until the opening timeline pulls it out. */
+.envelope-wrap .premium-card {
+  z-index: 6;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(34%) scale(.94);
   transform-origin: center center;
+  pointer-events: none;
 }
 
 @media (max-width: 480px) {
