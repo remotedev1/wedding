@@ -1,16 +1,17 @@
 import { wedding } from "@/data/wedding";
-import { KodavaSymbol } from "./CulturalImage";
 
 export function SplashScreen() {
+  const groomFirstName = wedding.couple.groom.name.split(" ")[0];
+  const brideFirstName = wedding.couple.bride.name.split(" ")[0];
+
   return (
     <section className="splash-screen" aria-label="Wedding invitation introduction">
       <div className="splash-inner">
-        <div className="splash-symbol">
-          <KodavaSymbol className="splash-kodava-symbol" />
-        </div>
-
-        <p className="splash-location">{wedding.splash.location}</p>
-        <p className="splash-line">{wedding.splash.line}</p>
+        <h1 className="splash-title">
+          <span className="splash-name">{groomFirstName}</span>
+          <span className="splash-weds">weds</span>
+          <span className="splash-name">{brideFirstName}</span>
+        </h1>
       </div>
     </section>
   );
