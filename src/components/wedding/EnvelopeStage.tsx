@@ -98,7 +98,6 @@ export function EnvelopeStage({
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduced) {
       animatingRef.current = true;
-      setAnimating(true);
       onOpened();
       return;
     }
