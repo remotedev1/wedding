@@ -1,3 +1,0 @@
-export default function MatchLoading() {
-  return <main className="min-h-screen bg-slate-100 pt-[88px]"><div className="h-52 animate-pulse border-b bg-white"/><div className="mx-auto grid max-w-6xl animate-pulse gap-5 px-4 py-5 lg:grid-cols-[1.5fr_.7fr]"><div className="space-y-4"><div className="h-64 rounded-xl bg-slate-200"/><div className="h-72 rounded-xl bg-slate-200"/></div><div className="space-y-4"><div className="h-48 rounded-xl bg-slate-200"/><div className="h-64 rounded-xl bg-slate-200"/></div></div></main>;
-}

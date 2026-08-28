@@ -1,3 +1,0 @@
-export default function TournamentLoading() {
-  return <main className="min-h-screen bg-slate-100 pt-[88px]"><div className="h-28 animate-pulse bg-slate-950"/><div className="mx-auto max-w-7xl animate-pulse space-y-5 px-4 py-6 sm:px-6 lg:px-8"><div className="grid gap-3 sm:grid-cols-4">{Array.from({length:4}).map((_,i)=><div key={i} className="h-20 rounded-xl bg-slate-200"/>)}</div><div className="grid gap-5 lg:grid-cols-[1.5fr_.7fr]"><div className="h-[520px] rounded-xl bg-slate-200"/><div className="h-[340px] rounded-xl bg-slate-200"/></div></div></main>;
-}

@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  pageExtensions: ["ts", "tsx"],
   allowedDevOrigins: ["http://localhost:3000"],
   reactStrictMode: true,
   images: {
@@ -9,10 +10,10 @@ const nextConfig = {
       { protocol: "https", hostname: "images.unsplash.com", port: "" },
     ],
   },
-   async headers() {
+  async headers() {
     return [
       {
-        source: "/videos/(.*)", // all files inside /public/videos/
+        source: "/videos/(.*)",
         headers: [
           {
             key: "Cache-Control",
