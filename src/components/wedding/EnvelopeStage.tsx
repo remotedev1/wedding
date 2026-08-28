@@ -28,6 +28,11 @@ export function EnvelopeStage({
     const wrap = root.querySelector(".envelope-wrap");
     const scene = root.querySelector(".envelope-scene");
     const body = root.querySelector(".envelope-body");
+    const envelopePieces = Array.from(
+      root.querySelectorAll(
+        ".envelope-back, .envelope-lining, .envelope-left, .envelope-right, .envelope-bottom, .envelope-flap"
+      )
+    );
     const flap = root.querySelector(".envelope-flap");
     const seal = root.querySelector(".wax-seal");
     const sealRing = root.querySelector(".wax-seal-ring");
@@ -36,13 +41,13 @@ export function EnvelopeStage({
 
     if (opened) {
       animatingRef.current = false;
-      gsap.set(wrap, { opacity: 0, pointerEvents: "none" });
       return;
     }
 
-    animatingRef.current = false;
+    if (!wrap || !scene || !body || !flap || !seal || !sealRing || !card || !hint) return;
 
-    gsap.killTweensOf([wrap, scene, body, flap, seal, sealRing, card, hint]);
+    animatingRef.current = false;
+    gsap.killTweensOf([wrap, scene, body, flap, seal, sealRing, card, hint, ...envelopePieces]);
 
     gsap.set(wrap, {
       opacity: 1,
@@ -60,6 +65,10 @@ export function EnvelopeStage({
       y: 0
     });
 
+    gsap.set(envelopePieces, {
+      autoAlpha: 1,
+      y: 0
+    });
     gsap.set(flap, {
       rotateX: 0,
       zIndex: 60,
@@ -80,12 +89,11 @@ export function EnvelopeStage({
 
     gsap.set(card, {
       autoAlpha: 0,
-      yPercent: 34,
+      yPercent: -5,
       scale: 0.94,
       rotateX: 0,
-      zIndex: 6
+      zIndex: 24
     });
-
     gsap.set(hint, {
       opacity: 1,
       y: 0
@@ -108,12 +116,22 @@ export function EnvelopeStage({
     const root = rootRef.current;
     const wrap = root.querySelector(".envelope-wrap");
     const scene = root.querySelector(".envelope-scene");
-    const body = root.querySelector(".envelope-body");
+    const envelopePieces = Array.from(
+      root.querySelectorAll(
+        ".envelope-back, .envelope-lining, .envelope-left, .envelope-right, .envelope-bottom, .envelope-flap"
+      )
+    );
     const flap = root.querySelector(".envelope-flap");
     const seal = root.querySelector(".wax-seal");
     const sealRing = root.querySelector(".wax-seal-ring");
     const card = root.querySelector(".invite-card");
     const hint = root.querySelector(".open-hint");
+
+    if (!wrap || !scene || !flap || !seal || !sealRing || !card || !hint) {
+      animatingRef.current = false;
+      setAnimating(false);
+      return;
+    }
 
     const tl = gsap.timeline({
       defaults: { overwrite: "auto" },
@@ -166,10 +184,12 @@ export function EnvelopeStage({
         ease: "power2.in"
       })
 
-      // 3. Wake the hidden card inside the envelope, then open the flap.
+      // 3. Wake the tucked card, then open the flap.
       .set(card, {
         autoAlpha: 1,
-        zIndex: 6
+        yPercent: -5,
+        scale: 0.94,
+        zIndex: 24
       })
       .to(flap, {
         rotateX: -176,
@@ -177,40 +197,40 @@ export function EnvelopeStage({
         ease: "power3.inOut"
       }, "-=0.02")
 
-      // 4. Lift the card from behind the envelope face.
+      // 4. Pull the card up while the front folds still mask its lower edge.
       .set(flap, {
         zIndex: 12
       })
       .to(card, {
-        yPercent: -74,
-        scale: 1.005,
-        duration: 0.74,
+        yPercent: -66,
+        scale: 1,
+        duration: 0.92,
         ease: "power3.out"
-      }, "-=0.06")
+      }, "-=0.04")
       .set(card, {
-        zIndex: 70
+        zIndex: 72
       })
       .to(card, {
-        yPercent: -98,
-        scale: 1.025,
-        duration: 0.36,
-        ease: "back.out(1.25)"
+        yPercent: -92,
+        scale: 1.028,
+        duration: 0.42,
+        ease: "back.out(1.18)"
       })
 
-      // 5. Drop the envelope body away after the card has popped out.
-      .to(body, {
-        y: 92,
-        opacity: 0,
-        duration: 0.5,
+      // 5. Let the envelope pieces fall away after the card is outside.
+      .to(envelopePieces, {
+        y: 70,
+        autoAlpha: 0,
+        duration: 0.46,
         ease: "power2.in"
       }, "-=0.18")
 
-      // 6. Card exits toward the viewer, then full page takes over.
+      // 6. Fade the lifted card into the full invitation.
       .to(card, {
-        yPercent: -122,
-        scale: 1.05,
+        yPercent: -112,
+        scale: 1.045,
         autoAlpha: 0,
-        duration: 0.46,
+        duration: 0.42,
         ease: "power2.inOut"
       }, "-=0.08")
       .to(wrap, {
@@ -249,23 +269,22 @@ export function EnvelopeStage({
         <section className="envelope-wrap" aria-label="Wedding invitation envelope">
           <div className="envelope-button" aria-hidden="true">
             <span className="envelope-scene">
-              <span className="invite-card premium-card">
-                <span className="card-inner-border" aria-hidden="true" />
-                <span className="mini-symbol">
-                  <KodavaSymbol className="envelope-kodava-symbol" alt="" />
-                </span>
-                <span className="mini-copy">Wedding Invitation</span>
-                <span className="mini-names">
-                  {wedding.couple.bride.name}
-                  <i>&amp;</i>
-                  {wedding.couple.groom.name}
-                </span>
-                <span className="mini-place">{wedding.splash.location}</span>
-              </span>
-
               <span className="envelope-body premium-envelope">
                 <span className="envelope-back" />
                 <span className="envelope-lining" />
+                <span className="invite-card premium-card">
+                  <span className="card-inner-border" aria-hidden="true" />
+                  <span className="mini-symbol">
+                    <KodavaSymbol className="envelope-kodava-symbol" alt="" />
+                  </span>
+                  <span className="mini-copy">Wedding Invitation</span>
+                  <span className="mini-names">
+                    {wedding.couple.bride.name}
+                    <i>&amp;</i>
+                    {wedding.couple.groom.name}
+                  </span>
+                  <span className="mini-place">{wedding.splash.location}</span>
+                </span>
                 <span className="envelope-flap">
                   <span className="flap-inner" />
                 </span>
@@ -275,7 +294,7 @@ export function EnvelopeStage({
 
                 <span className="wax-seal" aria-hidden="true">
                   <span className="wax-seal-ring" />
-                  <span className="wax-seal-monogram">K</span>
+                  <span className="wax-seal-monogram text-xl">Open</span>
                 </span>
               </span>
             </span>

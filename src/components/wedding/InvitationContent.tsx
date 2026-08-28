@@ -25,7 +25,6 @@ export function InvitationContent({ onReplay }: { onReplay: () => void }) {
             <span>{wedding.couple.groom.name}</span>
           </h1>
           <div className="fine-ornament" aria-hidden="true"><span /><b>✦</b><span /></div>
-          <p className="wedding-with">with</p>
           <div className="hero-date">
             <strong>{wedding.invitation.date}</strong>
             <span>{wedding.invitation.time}</span>
@@ -116,7 +115,6 @@ export function InvitationContent({ onReplay }: { onReplay: () => void }) {
             <div className="venue-bolicha-frame">
               <ThumBolicha className="venue-bolicha-image" />
             </div>
-            <p className="venue-bolicha-caption">Thum Bolicha</p>
           </div>
 
           <div className="venue-content">

@@ -1,5 +1,171 @@
 @import "tailwindcss";
+@config "../../tailwind.config.js";
+@source "../modules";
 
+
+:root {
+  --font-mundial: Arial, Helvetica, sans-serif;
+  --font-display: Georgia, 'Times New Roman', serif;
+  --font-body: var(--font-mundial);
+
+  --color-yellow: #f4c430;
+  --color-blue: #1a3b5d;
+  --color-maroon: #800020;
+  --color-cream: #faf8f3;
+  --color-sand: #e8e3d8;
+  --color-charcoal: #20242a;
+
+  --background: 0 0% 100%;
+  --foreground: 222 47% 11%;
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 11%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 47% 11%;
+  --primary: 222 47% 11%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 210 40% 96%;
+  --secondary-foreground: 222 47% 11%;
+  --muted: 210 40% 96%;
+  --muted-foreground: 215 16% 47%;
+  --accent: 210 40% 96%;
+  --accent-foreground: 222 47% 11%;
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 214 32% 91%;
+  --input: 214 32% 91%;
+  --ring: 222 47% 11%;
+  --radius: 0.75rem;
+}
+
+.dark {
+  --background: 222 47% 6%;
+  --foreground: 210 40% 98%;
+  --card: 222 47% 8%;
+  --card-foreground: 210 40% 98%;
+  --popover: 222 47% 8%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 210 40% 98%;
+  --primary-foreground: 222 47% 11%;
+  --secondary: 217 33% 17%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 217 33% 17%;
+  --muted-foreground: 215 20% 65%;
+  --accent: 217 33% 17%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 62% 42%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 217 33% 17%;
+  --input: 217 33% 17%;
+  --ring: 213 27% 84%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    min-width: 320px;
+    font-family: var(--font-body);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  button, a, input, select, textarea {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  *:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .page-shell {
+    @apply mx-auto w-full max-w-[1600px] px-4 py-5 sm:px-6 sm:py-6 lg:px-8 lg:py-8;
+  }
+
+  .page-header {
+    @apply flex flex-col gap-4 border-b border-slate-200/80 pb-5 dark:border-slate-800 sm:pb-6 lg:flex-row lg:items-end lg:justify-between;
+  }
+
+  .page-eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400;
+  }
+
+  .page-title {
+    @apply mt-1 text-2xl font-bold tracking-tight text-slate-950 dark:text-white sm:text-3xl;
+  }
+
+  .page-description {
+    @apply mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400 sm:text-[15px];
+  }
+
+  .surface-card {
+    @apply rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900;
+  }
+
+  .metric-card {
+    @apply rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-5;
+  }
+
+  .responsive-table-wrap {
+    @apply -mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0;
+    scrollbar-width: thin;
+  }
+
+  .status-dot {
+    @apply inline-block h-2 w-2 rounded-full;
+  }
+}
+
+.hide-scroll-bar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scroll-bar::-webkit-scrollbar { display: none; }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Wedding invitation styles */
 :root {
   --ivory: #f8f2e8;
   --paper: #fffaf1;
@@ -2284,8 +2450,8 @@ body {
 }
 
 /*
-  Important: the card is rendered as a sibling before the envelope body.
-  Its z-index is intentionally raised by GSAP only after the flap finishes opening.
+  The card sits inside the envelope body between the lining and front folds.
+  GSAP raises its z-index only after the masked pull-out motion is readable.
 */
 
 
@@ -2322,7 +2488,7 @@ body {
   z-index: 6;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(34%) scale(.94);
+  transform: translateY(-5%) scale(.94);
   transform-origin: center center;
   pointer-events: none;
 }
@@ -2333,3 +2499,4 @@ body {
     height: 74%;
   }
 }
+

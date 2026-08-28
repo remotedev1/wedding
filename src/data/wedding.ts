@@ -37,7 +37,7 @@ export const wedding = {
   },
 
   invitation: {
-    message: "We cordially invites you to celebrate the wedding of her son",
+    message: "We cordially invites you to celebrate the wedding of us.",
     date: "THURSDAY • 5 NOVEMBER 2026",
     time: "Dampathi Muhurtham • 10:30 AM",
     venue: "Kodava Samaja, Ponnampet"
@@ -56,7 +56,7 @@ export const wedding = {
   events: [
      {
       title: "Oorkuduvo",
-      date: "Thursday, 4 November 2026",
+      date: "Wednesday, 4 November 2026",
     },
     {
       title: "Dampathi Muhurtham",
