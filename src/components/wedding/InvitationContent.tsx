@@ -48,7 +48,6 @@ export function InvitationContent({ onReplay }: { onReplay: () => void }) {
             <div className="couple-photo-copy">
               <p className="section-eyebrow">{wedding.couplePhoto.eyebrow}</p>
               <h2>{wedding.couplePhoto.title}</h2>
-              <p>{wedding.couplePhoto.body}</p>
             </div>
           </ScrollReveal>
         </section>
