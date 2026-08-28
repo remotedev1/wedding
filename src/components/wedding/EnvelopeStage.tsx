@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { wedding } from "@/data/wedding";
 import { InvitationContent } from "./InvitationContent";
 import { KodavaSymbol } from "./CulturalImage";
+import { MusicToggle, WEDDING_MUSIC_START_EVENT } from "./MusicToggle";
 
 interface EnvelopeStageProps {
   opened: boolean;
@@ -20,6 +21,12 @@ export function EnvelopeStage({
   const rootRef = useRef<HTMLDivElement>(null);
   const animatingRef = useRef(false);
   const [animating, setAnimating] = useState(false);
+
+  const requestMusicStart = () => {
+    if (!wedding.audio.enabled) return;
+
+    window.dispatchEvent(new Event(WEDDING_MUSIC_START_EVENT));
+  };
 
   useLayoutEffect(() => {
     const root = rootRef.current;
@@ -102,6 +109,8 @@ export function EnvelopeStage({
 
   const openEnvelope = () => {
     if (animatingRef.current || animating || opened || !rootRef.current) return;
+
+    requestMusicStart();
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduced) {
@@ -258,6 +267,8 @@ export function EnvelopeStage({
       aria-label={!opened ? "Open wedding invitation" : undefined}
       aria-disabled={!opened && animating ? true : undefined}
     >
+      <MusicToggle visible={opened} />
+
       {!opened && (
         <>
           <div className="ambient-glow" aria-hidden="true" />
@@ -279,9 +290,9 @@ export function EnvelopeStage({
                   </span>
                   <span className="mini-copy">Wedding Invitation</span>
                   <span className="mini-names">
-                    {wedding.couple.bride.name}
-                    <i>&amp;</i>
                     {wedding.couple.groom.name}
+                    <i>&amp;</i>
+                    {wedding.couple.bride.name}
                   </span>
                   <span className="mini-place">{wedding.splash.location}</span>
                 </span>

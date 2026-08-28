@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { wedding } from "@/data/wedding";
 import { Countdown } from "./Countdown";
-import { MusicToggle } from "./MusicToggle";
 import { RsvpSection } from "./RsvpSection";
 import { ScrollReveal } from "./ScrollReveal";
 import { KodavaSymbol, ThumBolicha } from "./CulturalImage";
@@ -9,8 +8,6 @@ import { KodavaSymbol, ThumBolicha } from "./CulturalImage";
 export function InvitationContent({ onReplay }: { onReplay: () => void }) {
   return (
     <div className="full-invitation">
-      <MusicToggle />
-
       <section className="invite-hero section-shell">
         <div className="botanical botanical-left" aria-hidden="true">
           <Image src="/images/coffee-branch.svg" alt="" width={240} height={320} />
@@ -20,9 +17,9 @@ export function InvitationContent({ onReplay }: { onReplay: () => void }) {
           <KodavaSymbol className="hero-symbol cultural-symbol mx-auto" />
           <p className="hero-message host-message">{wedding.invitation.message}</p>
           <h1 className="hero-names">
-            <span>{wedding.couple.bride.name}</span>
-            <em>&amp;</em>
             <span>{wedding.couple.groom.name}</span>
+            <em>&amp;</em>
+            <span>{wedding.couple.bride.name}</span>
           </h1>
           <div className="fine-ornament" aria-hidden="true"><span /><b>✦</b><span /></div>
           <div className="hero-date">

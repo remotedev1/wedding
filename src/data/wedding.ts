@@ -78,7 +78,7 @@ export const wedding = {
 
   couplePhoto: {
     enabled: true,
-    src: "/images/image01.jpg",
+    src: "/images/image01.jpeg",
     alt: "Tharun Chinnappa and Ashwitha Accamma",
     eyebrow: "OUR WEDDING",
     title: "A new chapter begins.",
@@ -122,7 +122,7 @@ export const wedding = {
   },
 
   audio: {
-    enabled: false,
+    enabled: true,
     src: "/audio/wedding-theme.mp3",
     label: "Music"
   }
