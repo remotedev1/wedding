@@ -38,7 +38,7 @@ export const wedding = {
   },
 
   invitation: {
-    message: "We cordially invites you to celebrate the wedding of us.",
+    message: "We cordially invite you to celebrate the wedding of us.",
     date: "THURSDAY • 5 NOVEMBER 2026",
     time: "Dampathi Muhurtham • 10:30 AM",
     venue: "Kodava Samaja, Ponnampet",
