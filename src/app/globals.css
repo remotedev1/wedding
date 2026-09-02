@@ -2500,3 +2500,113 @@ body {
   }
 }
 
+
+
+/* Wedding requested visual-only update */
+
+/* Dark maroon envelope — no geometry, content, or animation changes. */
+.premium-envelope .envelope-back {
+  background: linear-gradient(160deg, #741f30 0%, #571420 58%, #390b14 100%);
+}
+.premium-envelope .envelope-lining {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(218,178,117,.15), transparent 42%),
+    repeating-linear-gradient(45deg, rgba(244,218,177,.045) 0 2px, transparent 2px 10px),
+    #631a29;
+}
+.premium-envelope .envelope-left {
+  background: linear-gradient(145deg, #762536 0%, #50121f 72%);
+}
+.premium-envelope .envelope-right {
+  background: linear-gradient(215deg, #69202f 0%, #430e19 72%);
+}
+.premium-envelope .envelope-bottom {
+  background: linear-gradient(to top, #390b14 0%, #55131f 68%, #702131 100%);
+}
+.premium-envelope .envelope-flap {
+  background:
+    linear-gradient(to bottom, rgba(255,255,255,.045), transparent 28%),
+    linear-gradient(165deg, #772535 0%, #53131f 62%, #390b14 100%);
+}
+.premium-envelope .flap-inner {
+  background:
+    repeating-linear-gradient(45deg, rgba(235,204,158,.055) 0 2px, transparent 2px 10px),
+    linear-gradient(to bottom, #631a29, #400d18);
+}
+.premium-envelope .envelope-back,
+.premium-envelope .envelope-left,
+.premium-envelope .envelope-right,
+.premium-envelope .envelope-bottom,
+.premium-envelope .envelope-flap {
+  border-color: rgba(216,174,108,.30);
+}
+
+/* Refined splash animation — existing splash content remains untouched. */
+.splash-screen {
+  overflow: hidden;
+  isolation: isolate;
+}
+.splash-screen::before {
+  content: "";
+  position: absolute;
+  inset: -25%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(116,31,48,.10), transparent 24%),
+    radial-gradient(circle at 50% 50%, rgba(197,151,87,.09), transparent 44%);
+  animation: inviteSplashGlow 3s ease-in-out both;
+}
+.splash-screen::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(58vw,32rem);
+  aspect-ratio: 1;
+  z-index: -1;
+  pointer-events: none;
+  border: 1px solid rgba(116,31,48,.13);
+  border-radius: 50%;
+  opacity: 0;
+  animation: inviteSplashHalo 2.7s cubic-bezier(.22,.8,.25,1) .12s both;
+}
+.splash-screen > * {
+  animation: inviteSplashEnter 1.15s cubic-bezier(.22,.8,.25,1) both;
+}
+.splash-screen .cultural-symbol,
+.splash-screen img,
+.splash-screen svg {
+  transform-origin: center;
+  animation: inviteSplashSymbol 1.45s cubic-bezier(.22,.8,.25,1) both;
+}
+@keyframes inviteSplashEnter {
+  0% { opacity: 0; transform: translateY(18px); filter: blur(4px); }
+  55% { opacity: 1; }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+@keyframes inviteSplashSymbol {
+  0% { opacity: 0; transform: scale(.72) rotate(-5deg); }
+  65% { opacity: 1; transform: scale(1.045) rotate(1deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0); }
+}
+@keyframes inviteSplashHalo {
+  0% { opacity: 0; transform: translate(-50%,-50%) scale(.68); }
+  35% { opacity: .65; }
+  100% { opacity: 0; transform: translate(-50%,-50%) scale(1.12); }
+}
+@keyframes inviteSplashGlow {
+  0% { opacity: 0; transform: scale(.9); }
+  45% { opacity: 1; }
+  100% { opacity: .72; transform: scale(1.04); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .splash-screen::before,
+  .splash-screen::after,
+  .splash-screen > *,
+  .splash-screen .cultural-symbol,
+  .splash-screen img,
+  .splash-screen svg {
+    animation: none !important;
+  }
+}
